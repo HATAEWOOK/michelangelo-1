@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: 2082e6f924eade9448b12fb4c5e97f5d, type: 3}
+      propertyPath: m_Name
+      value: canvasBox Variant
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 2082e6f924eade9448b12fb4c5e97f5d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0

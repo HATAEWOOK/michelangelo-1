@@ -51,3 +51,5 @@ MonoBehaviour:
   drawColorY: 2
   gridWalls: []
   voxelBorders: {fileID: 0}
+  mrtkCamera: {fileID: 0}
+  initialZ: 1
