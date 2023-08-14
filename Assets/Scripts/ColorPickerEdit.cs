@@ -78,6 +78,38 @@ public class ColorPickerEdit : MonoBehaviour
         }
     }
 
+    public void PlusX()
+    {
+        if (bx < 0.32f * 15)
+        {
+            bx += 0.32f;
+        }
+    }
+
+    public void MinusX()
+    {
+        if (bx > 0)
+        {
+            bx -= 0.32f;
+        }
+    }
+
+    public void PlusY()
+    {
+        if (by < 0.32f * 15)
+        {
+            by += 0.32f;
+        }
+    }
+
+    public void MinusY()
+    {
+        if (by > 0)
+        {
+            bx -= 0.32f;
+        }
+    }
+
     public void IncX()
     {
         if (incX)

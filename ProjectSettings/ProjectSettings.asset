@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.1
+  bundleVersion: 2.0
   preloadedAssets:
   - {fileID: 11400000, guid: c6d07e8950c7a7b42a66ba2778bd351a, type: 2}
   - {fileID: 11400000, guid: 444bbcc34b0449a408f85b555f0b771b, type: 2}
@@ -159,7 +159,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.DefaultCompany.michel_glss_final
+    Android: com.Team.Michelangelo.MichelangeloGlasses
   buildNumber:
     Standalone: 0
     iPhone: 0

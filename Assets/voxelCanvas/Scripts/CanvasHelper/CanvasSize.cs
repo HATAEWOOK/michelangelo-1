@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Microsoft.MixedReality.Toolkit.SpatialManipulation;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CanvasSize : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class CanvasSize : MonoBehaviour
         box.size = new Vector3(2 * sSize, 2 * sSize, 2 * sSize);
         box.center = new Vector3(sSize, sSize, sSize);
         canvasManipulate = voxelCanvas.gameObject.AddComponent<ObjectManipulator>();
+        canvasManipulate.selectMode = InteractableSelectMode.Multiple;
         canvasGrid[0].Generate();
         canvasGrid[1].Generate();
         canvasGrid[2].Generate();
@@ -39,6 +41,7 @@ public class CanvasSize : MonoBehaviour
         box.size = new Vector3(2 * mSize, 2 * mSize, 2 * mSize);
         box.center = new Vector3(mSize, mSize, mSize);
         canvasManipulate = voxelCanvas.gameObject.AddComponent<ObjectManipulator>();
+        canvasManipulate.selectMode = InteractableSelectMode.Multiple;
         canvasGrid[0].Generate();
         canvasGrid[1].Generate();
         canvasGrid[2].Generate();
@@ -52,6 +55,7 @@ public class CanvasSize : MonoBehaviour
         box.size = new Vector3(2 * lSize, 2 * lSize, 2 * lSize);
         box.center = new Vector3(lSize, lSize, lSize);
         canvasManipulate = voxelCanvas.gameObject.AddComponent<ObjectManipulator>();
+        canvasManipulate.selectMode = InteractableSelectMode.Multiple;
         canvasGrid[0].Generate();
         canvasGrid[1].Generate();
         canvasGrid[2].Generate();

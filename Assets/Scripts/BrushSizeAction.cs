@@ -14,12 +14,12 @@ public class BrushSizeAction : MonoBehaviour
     private float sizeValueFloat;
     private float prevValue;
 
-    [SerializeField]
+
     private float stepSize = 0.1f;
-    [SerializeField]
-    private int maximumSize = 80;
-    [SerializeField]
-    private int minimumSize = 10;
+
+    private int maximumSize = 8;
+
+    private int minimumSize = 1;
     private Brushes br;
 
     public float SizeValueFloat { get => sizeValueFloat; set => sizeValueFloat = value; }
@@ -27,8 +27,9 @@ public class BrushSizeAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sizeValue = this.GetComponent<TextMeshPro>().text;
-        sizeValueFloat = Convert.ToSingle(sizeValue);
+        //sizeValue = this.GetComponent<TextMeshPro>().text;
+        //sizeValueFloat = Convert.ToSingle(sizeValue);
+        this.GetComponent<TextMeshPro>().text = ((int)sizeValueFloat).ToString();
         prevValue = sizeValueFloat;
         br = GameObject.Find("Brushes").GetComponent<Brushes>();
     }
@@ -36,28 +37,46 @@ public class BrushSizeAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (plusSize)
-        {
-            if ((int)sizeValueFloat < maximumSize)
-            {
-                sizeValueFloat += stepSize;
-            }
-        }
+        //if (plusSize)
+        //{
+        //    if ((int)sizeValueFloat < maximumSize)
+        //    {
+        //        sizeValueFloat += stepSize;
+        //    }
+        //}
 
-        if (minusSize)
-        {
-            if ((int)sizeValueFloat > minimumSize)
-            {
-                sizeValueFloat -= stepSize;
-            }
-        }
+        //if (minusSize)
+        //{
+        //    if ((int)sizeValueFloat > minimumSize)
+        //    {
+        //        sizeValueFloat -= stepSize;
+        //    }
+        //}
 
-        if (prevValue != sizeValueFloat)
-        {
-            br.OnScaleChanged();
-            prevValue = sizeValueFloat;
-        }
+        //if (prevValue != sizeValueFloat)
+        //{
+        //    br.OnScaleChanged();
+        //    prevValue = sizeValueFloat;
+        //}
         this.GetComponent<TextMeshPro>().text = ((int)sizeValueFloat).ToString();
+    }
+
+    public void OnPlusClicked()
+    {
+        if ((int)sizeValueFloat < maximumSize)
+        {
+            sizeValueFloat += 1;
+            br.OnScaleChanged();
+        }
+    }
+
+    public void OnMinusClicked()
+    {
+        if ((int)sizeValueFloat > minimumSize)
+        {
+            sizeValueFloat -= 1;
+            br.OnScaleChanged();
+        }
     }
 
     public void OnPlusEnter()

@@ -13,6 +13,7 @@ public class Action : MonoBehaviour
 
     public void MakingZoneAction()
     {
+        TextureManager.instance.isUpdate = true;
         SceneManager.LoadScene("main");
     }
 

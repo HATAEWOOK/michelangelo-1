@@ -7,6 +7,7 @@ TagManager:
   - ProgramInfo
   - Brush
   - VoxelCanvas
+  - TextureTarget
   layers:
   - Default
   - TransparentFX

@@ -23,10 +23,15 @@ public class Brushes : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < brushObjects.Count; i++)
             brushObjects[i].SetActive(false);
+        foreach (BrushSizeAction size in brushSize)
+        {
+            foreach (GameObject bobject in brushObjects)
+                size.SizeValueFloat = bobject.transform.localScale.x * 100f;
+        }
         ChangeBrushColor();
     }
 
@@ -56,14 +61,14 @@ public class Brushes : MonoBehaviour
     public void BrushTypeCube()
     {
         mode.brushType = Mode.BrushType.cube;
-        brushSize[(int)mode.menuMode].SizeValueFloat = brushObjects[(int)mode.brushType].transform.localScale.x * 1000f;
+        brushSize[(int)mode.menuMode].SizeValueFloat = brushObjects[(int)mode.brushType].transform.localScale.x * 100f;
         ChangeBrushColor();
     }
 
     public void BrushTypeSphere()
     {
         mode.brushType = Mode.BrushType.sphere;
-        brushSize[(int)mode.menuMode].SizeValueFloat = brushObjects[(int)mode.brushType].transform.localScale.x * 1000f;
+        brushSize[(int)mode.menuMode].SizeValueFloat = brushObjects[(int)mode.brushType].transform.localScale.x * 100f;
         ChangeBrushColor();
     }
 
@@ -73,7 +78,7 @@ public class Brushes : MonoBehaviour
         Debug.Log("OnScaleChanged");
         if (mode.menuMode != Mode.MenuMode.none)
         {
-            float scaleValue = brushSize[(int)mode.menuMode].SizeValueFloat / 1000f;
+            float scaleValue = brushSize[(int)mode.menuMode].SizeValueFloat / 100f;
             brushObjects[(int)mode.brushType].transform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
         }
         
