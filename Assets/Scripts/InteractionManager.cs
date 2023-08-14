@@ -2,8 +2,10 @@ using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.Subsystems;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using Unity.Profiling;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -22,6 +24,11 @@ public class InteractionManager : MonoBehaviour
     [SerializeField]
     private MRTKRayInteractor rayInteractor;
     private Vector3 rayOriginPoint;
+    private GameObject voxelCanvas;
+    private IReadOnlyList<HandJointPose> handList;
+
+    [SerializeField]
+    private GameObject brushObjects;
 
     private enum interactionMode
     {
@@ -36,7 +43,7 @@ public class InteractionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        voxelCanvas = GameObject.Find("VoxelCanvas");
     }
 
     // Update is called once per frame
@@ -44,20 +51,28 @@ public class InteractionManager : MonoBehaviour
     {
         if (mode == interactionMode.Near)
         {
-            bool gotPinch = XRSubsystemHelpers.HandsAggregator.TryGetPinchingPoint(
+            if(XRSubsystemHelpers.HandsAggregator.TryGetEntireHand(handNode, out handList))
+            {
+                bool gotPinch = XRSubsystemHelpers.HandsAggregator.TryGetPinchingPoint(
             handNode,
             out HandJointPose jointPose);
 
-            bool isPinch = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(
-                handNode,
-                out bool isReady,
-                out bool isPinching,
-                out float pinchAmount);
+                if (brushObjects.activeSelf)
+                {
+                    brushObjects.transform.position = jointPose.Pose.position;
+                    brushObjects.transform.rotation = voxelCanvas.transform.rotation;
+                }
 
-            if (isReady)
-            {
-                Debug.Log("[hatw] send info");
-                tools.setTargetValue(jointPose.Pose.position, pinchAmount);
+                bool isPinch = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(
+                    handNode,
+                    out bool isReady,
+                    out bool isPinching,
+                    out float pinchAmount);
+
+                if (isReady)
+                {
+                    tools.setTargetValue(jointPose.Pose.position, pinchAmount);
+                }
             }
         }
         else if (mode == interactionMode.Far)

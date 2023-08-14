@@ -44,7 +44,7 @@ public class ProgramInfo : MonoBehaviour
         }
         else
         {
-            DestroyObject(gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -8,37 +8,37 @@ using System;
 // ‘Unity voxel block tutorial pt. 1’, AlexStv, 2014. 
 // http://alexstv.com/index.php/posts/unity-voxel-block-tutorial
 
-public class VoxelCanvas : MonoBehaviour {
+public class VoxelCanvas : MonoBehaviour
+{
 
-	// holds chunk information
+    // holds chunk information
     public Dictionary<VoxelCanvasPos, Chunk> chunks = new Dictionary<VoxelCanvasPos, Chunk>();
     public GameObject chunkPrefab;
-    private int placement = 0;
     public float initialSize = 0.1f;                                         // Scale the voxelCanvas after the chunk is drawn for Oculus camera
     public int chunkDimension = 16;                                          // dimensions of chunk
     private Block.Tile[,,,] voxelCanvasTextures;                             // keeps track of voxel textures
     private int[] voxelCanvasDimensions = { 3, 3, 3 };                       // how many chunks
     private static int numberOfChunks = 0;
-	// keeps track of chosen tile texture
+    // keeps track of chosen tile texture
     public int drawColorX = 0;
     public int drawColorY = 0;
     private int[,,] blockType;
     private Dictionary<string, int[]> selectionList;                          //saves selected voxels
     private int selectionListCount = 0;
-    //private SelectionHighlight highlight;
+    private SelectionHighlight highlight;
 
-	// holds the grid textured objects
+    // holds the grid textured objects
     [SerializeField]
     CanvasGrid[] gridWalls;
 
     [SerializeField]
-    GameObject voxelBorders;
+    public GameObject voxelBorders;
 
     [SerializeField]
-    GameObject mrtkCamera;
-
+    private float initialZ = 0.5f;
     [SerializeField]
-    float initialZ = 1.0f;
+    private GameObject userPos;
+
 
     private Vector3Int tmpVec = new Vector3Int(0, 0, 0);
 
@@ -74,13 +74,13 @@ public class VoxelCanvas : MonoBehaviour {
         }
     }
 
-    public int[] DrawColors 
+    public int[] DrawColors
     {
-           get
+        get
         {
-            return new int[2] {drawColorX, drawColorY };
+            return new int[2] { drawColorX, drawColorY };
         }
-           set
+        set
         {
             int[] cols = value;
             drawColorX = cols[0];
@@ -144,30 +144,30 @@ public class VoxelCanvas : MonoBehaviour {
 
     void Start()
     {
-        
+
     }
 
-    void Awake()
+    public void Generate()
     {
         // set the size from the programinfo object
         Debug.Log("STARTING CANVAS");
-        //highlight = this.GetComponent<SelectionHighlight>();
+        highlight = this.GetComponent<SelectionHighlight>();
         ProgramInfo info = null;
         if (GameObject.FindWithTag("ProgramInfo") != null)
         {
             info = GameObject.FindWithTag("ProgramInfo").GetComponent<ProgramInfo>();
         }
-        //float initialX;
+        float initialX;
         numberOfChunks = 0;
         selectionList = new Dictionary<string, int[]>();
-        
+
         if (GameObject.FindWithTag("ProgramInfo") != null)
         {
             voxelCanvasDimensions = new int[3] { info.VoxelCanvasDimensions[0], info.VoxelCanvasDimensions[1], info.VoxelCanvasDimensions[2] };
         }
         else
         {
-            voxelCanvasDimensions = new int[3] { 1, 1, 1 };
+            VoxelCanvasDimensions = new int[3] { 2, 2, 2 };
         }
 
         voxelCanvasTextures = new Block.Tile[chunkDimension * voxelCanvasDimensions[0], chunkDimension * voxelCanvasDimensions[1], chunkDimension * voxelCanvasDimensions[2], 6];
@@ -195,7 +195,7 @@ public class VoxelCanvas : MonoBehaviour {
         //set up the grid texture
         foreach (CanvasGrid wall in gridWalls)
         {
-            wall.ChunkDimension = 1/initialSize;
+            wall.ChunkDimension = 1 / initialSize;
 
             wall.SizeTexture();
         }
@@ -203,9 +203,10 @@ public class VoxelCanvas : MonoBehaviour {
         voxelBorders.transform.SetParent(transform);
         //scale down the voxelCanvas
 
-        //initialX = transform.position.x - (voxelCanvasDimensions[1] * chunkDimension * initialSize) / 2.0f;
+        initialX = transform.position.x - (voxelCanvasDimensions[1] * chunkDimension * initialSize) / 2.0f;
+        //Debug.Log(initialX);
         //transform.position = new Vector3(initialX, transform.position.y + 0.58f, transform.position.z - 2.3f);
-        transform.position = mrtkCamera.transform.position + new Vector3(-(initialSize*chunkDimension/2), -(initialSize * chunkDimension/2), initialZ);
+        transform.position = userPos.transform.position + new Vector3(-initialSize*chunkDimension, -initialSize * chunkDimension, initialZ);
         transform.localScale = new Vector3(initialSize, initialSize, initialSize);
 
 
@@ -216,113 +217,13 @@ public class VoxelCanvas : MonoBehaviour {
     private Vector3Int xVec = new Vector3Int(1, 0, 0);
     private Vector3Int zVec = new Vector3Int(0, 0, 1);
     private Vector3Int yVec = new Vector3Int(0, 1, 0);
-    void Update () {
-        //Debug.Log(placement);
-
-        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                Input.mousePosition.y, -Camera.main.transform.position.z));
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit;
-        //    Vector3 localPosition;
-        //    if (Physics.Raycast(ray, out hit))
-        //    {
-        //        localPosition = transform.InverseTransformPoint(hit.point);
-        //        Debug.Log("로컬 좌표: " + localPosition);
-
-        //        //Vector3 inversePoint = transform.InverseTransformPoint(point);
-        //        Vector3Int iPoint = new Vector3Int((int)localPosition.x, (int)localPosition.y, (int)localPosition.z);
-        //        //Vector3Int iPoint = new Vector3Int(0, 0, 0);
-        //        //SetBlock(0, 0, 0, new BlockEmpty());
-        //        SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockFull());
-        //        GetBlock(iPoint.x, iPoint.y, iPoint.z).SetTiles(DrawWholeColor(iPoint.x, iPoint.y, iPoint.z, drawColorX, drawColorY));
-        //    }
-            
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    Vector3Int iPoint = tmpVec + zVec;
-        //    //SetBlock(0, 0, 0, new BlockEmpty());
-        //    SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockFull());
-        //    GetBlock(iPoint.x, iPoint.y, iPoint.z).SetTiles(DrawWholeColor(iPoint.x, iPoint.y, iPoint.z, drawColorX, drawColorY));
-        //    zVec.z += 1;
-        //    /*
-        //    //sets an empty block at 0 0 0
-        //    SetBlock(0, 0, 0, new BlockEmpty());
-        //    //sets a full block at coords
-        //    SetBlock(2 + placement, 3, 2 + placement, new BlockFull());
-        //    //gets a block and sets all its tiles to one color
-        //    GetBlock(2 + placement, 3, 2 + placement).SetTiles(DrawWholeColor(0 + placement, 3, 0 + placement, 1, 13));
-        //    //gets a block and sets indicated direction to color
-        //    GetBlock(placement, 3, placement).SetTiles(DrawFaceColor(placement, 3, placement, 3, 5, Block.Direction.north));
-        //    placement++;
-        //    */
-        //}
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    Vector3Int iPoint = tmpVec + zVec;
-        //    //SetBlock(0, 0, 0, new BlockEmpty());
-        //    SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockEmpty());
-
-        //    if (zVec.z != 0)
-        //        zVec.z -= 1;
-
-        //    /*
-        //    SetBlock(0, 1, 0, new BlockEmpty());
-        //    SetBlock(1 + placement, placement-2, 1 + placement, new BlockFull());
-        //    GetBlock(1 + placement, placement - 2, 1 + placement).SetTiles(DrawFaceColor(1 + placement, placement - 2, 1 + placement, 0, 9, Block.Direction.up));
-        //    placement++;
-        //    */
-        //}
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    Vector3Int iPoint = tmpVec + xVec;
-        //    //SetBlock(0, 0, 0, new BlockEmpty());
-        //    SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockFull());
-        //    GetBlock(iPoint.x, iPoint.y, iPoint.z).SetTiles(DrawWholeColor(iPoint.x, iPoint.y, iPoint.z, drawColorX, drawColorY));
-        //    xVec.x += 1;
-        //}
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    Vector3Int iPoint = tmpVec + xVec;
-        //    //SetBlock(0, 0, 0, new BlockEmpty());
-        //    SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockEmpty());
-
-        //    if(xVec.x != 0)
-        //        xVec.x -= 1;
-        //}
+    void Update()
+    {
 
 
-        /*
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Vector3Int iPoint = tmpVec + yVec;
-            //SetBlock(0, 0, 0, new BlockEmpty());
-            SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockFull());
-            GetBlock(iPoint.x, iPoint.y, iPoint.z).SetTiles(DrawWholeColor(iPoint.x, iPoint.y, iPoint.z, drawColorX, drawColorY));
-            yVec.y += 1;
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Vector3Int iPoint = tmpVec + yVec;
-            //SetBlock(0, 0, 0, new BlockEmpty());
-            SetBlock(iPoint.x, iPoint.y, iPoint.z, new BlockEmpty());
-            if (yVec.y != 0)
-                yVec.y -= 1;
-        }
-        */
-        if (placement > 40)
-        {
-
-            placement = 0;
-        }
-        
     }
 
     // functions for adding to the selction
-
-    /*
     public void AddVoxelToSelection(int x, int y, int z)
     {
         Chunk chunk = GetChunk(x, y, z);
@@ -339,7 +240,7 @@ public class VoxelCanvas : MonoBehaviour {
                 selectionList[key] = new int[] { x, y, z, i };
                 selectionListCount++;
             }
-            
+
             //selectionList.Add(key, new int[] { x, y, z, i });
         }
         highlight.HLVoxel(x, y, z);
@@ -356,7 +257,7 @@ public class VoxelCanvas : MonoBehaviour {
         for (int i = 0; i < 6; i++)
         {
             key = x + "," + y + "," + z + "," + i;
-            
+
             if (selectionList.ContainsKey(key))
             {
                 selectionList.Remove(key);
@@ -436,7 +337,7 @@ public class VoxelCanvas : MonoBehaviour {
                 break;
         }
         key = x + "," + y + "," + z + "," + face;
-        
+
         if (selectionList.ContainsKey(key))
         {
             selectionList.Remove(key);
@@ -451,7 +352,7 @@ public class VoxelCanvas : MonoBehaviour {
         highlight.ClearHL();
         selectionListCount = 0;
     }
-    */
+
     public bool VoxelInSelection(int x, int y, int z)
     {
         Chunk chunk = GetChunk(x, y, z);
@@ -470,7 +371,7 @@ public class VoxelCanvas : MonoBehaviour {
             }
         }
         return (faces > 0);
-        
+
     }
 
     public bool FaceInSelection(int x, int y, int z, Block.Direction direction)
@@ -508,8 +409,6 @@ public class VoxelCanvas : MonoBehaviour {
 
     }
 
-
-
     public void CreateChunk(int x, int y, int z)
     {
         VoxelCanvasPos voxelCanvasPos = new VoxelCanvasPos(x, y, z);
@@ -519,7 +418,7 @@ public class VoxelCanvas : MonoBehaviour {
                         chunkPrefab, new Vector3(x, y, z),
                         Quaternion.Euler(Vector3.zero)
                     ) as GameObject;
-       
+
 
         Chunk newChunk = newChunkObject.GetComponent<Chunk>();
         newChunk.FillBlocks(ChunkDimension);
@@ -527,7 +426,7 @@ public class VoxelCanvas : MonoBehaviour {
         newChunk.pos = voxelCanvasPos;
         newChunk.voxelCanvas = this;
 
-        
+
 
         //Add it to the chunks dictionary with the position as the key
         chunks.Add(voxelCanvasPos, newChunk);
@@ -610,9 +509,11 @@ public class VoxelCanvas : MonoBehaviour {
         {
             chunk.SetBlock(x - chunk.pos.x, y - chunk.pos.y, z - chunk.pos.z, block);
 
-            if (block.GetType().Name.Equals("BlockFull") ) {
+            if (block.GetType().Name.Equals("BlockFull"))
+            {
                 blockType[x, y, z] = 1;
-            } else
+            }
+            else
             {
                 blockType[x, y, z] = 0;
             }
@@ -683,12 +584,12 @@ public class VoxelCanvas : MonoBehaviour {
         if (chunk != null)
         {
 
-            for (int i=0; i<6; i++)
+            for (int i = 0; i < 6; i++)
             {
-                voxelCanvasTextures[x, y, z, i].x = tile[i,0];
-                voxelCanvasTextures[x, y, z, i].y = tile[i,1];
+                voxelCanvasTextures[x, y, z, i].x = tile[i, 0];
+                voxelCanvasTextures[x, y, z, i].y = tile[i, 1];
             }
-            
+
 
             Block.Tile[] tiles = {
                             voxelCanvasTextures[x, y, z, 0],
@@ -804,7 +705,8 @@ public class VoxelCanvas : MonoBehaviour {
             };
             chunk.update = true;
             return tiles;
-        } else
+        }
+        else
         {
             Block.Tile t = new Block.Tile();
             Block.Tile[] tiles = {
@@ -868,7 +770,7 @@ public class VoxelCanvas : MonoBehaviour {
             }
         }
 
-        blockType =  new int[bType.GetLength(0), bType.GetLength(1), bType.GetLength(2)];
+        blockType = new int[bType.GetLength(0), bType.GetLength(1), bType.GetLength(2)];
 
         voxelCanvasDimensions = new int[3] { dim[0], dim[1], dim[2] };
         voxelCanvasTextures = new Block.Tile[chunkDimension * voxelCanvasDimensions[0], chunkDimension * voxelCanvasDimensions[1], chunkDimension * voxelCanvasDimensions[2], 6];
@@ -901,8 +803,8 @@ public class VoxelCanvas : MonoBehaviour {
                     if (bType[x, y, z] == 1)
                     {
                         SetBlock(x, y, z, new BlockFull());
-                        int[,] tile = new int[6,2];
-                        for (int i=0; i<6; i++)
+                        int[,] tile = new int[6, 2];
+                        for (int i = 0; i < 6; i++)
                         {
                             voxelCanvasTextures[x, y, z, i].x = tiles[x, y, z, i].x;
                             voxelCanvasTextures[x, y, z, i].y = tiles[x, y, z, i].y;
@@ -927,7 +829,7 @@ public class VoxelCanvas : MonoBehaviour {
         //resize the grid
         voxelBorders.transform.localScale = Vector3.one;
         voxelBorders.transform.localScale = new Vector3(voxelCanvasDimensions[0], voxelCanvasDimensions[1], voxelCanvasDimensions[2]) * chunkDimension;
-        voxelBorders.transform.position = transform.lossyScale.x*(transform.position + voxelBorders.transform.localScale * 0.5f - Vector3.one * 0.5f);
+        voxelBorders.transform.position = transform.lossyScale.x * (transform.position + voxelBorders.transform.localScale * 0.5f - Vector3.one * 0.5f);
 
         //set up the grid texture
         foreach (CanvasGrid wall in gridWalls)
@@ -938,5 +840,5 @@ public class VoxelCanvas : MonoBehaviour {
         }
     }
 
-    
+
 }

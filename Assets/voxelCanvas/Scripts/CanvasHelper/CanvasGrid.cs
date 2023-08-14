@@ -55,9 +55,10 @@ public class CanvasGrid : MonoBehaviour {
         }
     }
 
-    void Start()
+    public void Generate()
     {
         rend = GetComponent<Renderer>();
+        Debug.Log(chunkDimension);
         if (scaleDirections.x > 0 && scaleDirections.y > 0)
         {
             ScaleX = transform.parent.lossyScale.x * ChunkDimension;

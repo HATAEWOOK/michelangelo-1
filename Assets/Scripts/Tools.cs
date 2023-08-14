@@ -7,8 +7,8 @@ public class Tools : MonoBehaviour
     [SerializeField]
     private VoxelCanvas voxelCanvas;
 
-    private Brush brushTool = new Brush();
-    private Eraser eraseTool = new Eraser();
+    [SerializeField]
+    private Brushes brushes;
 
     private Vector3 targetPosition;
     private Vector3Int targetPositionInt;
@@ -17,14 +17,9 @@ public class Tools : MonoBehaviour
     [SerializeField]
     private float pinchTreshhold = 0.8f;
 
-    private enum mode
-    {
-        Brush,
-        Eraser
-    };
-
     [SerializeField]
-    private mode selectMode = mode.Brush;
+    Mode mode;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,16 +30,23 @@ public class Tools : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (selectMode == mode.Eraser)
+
+        if (isPinching)
         {
-            if (isPinching)
-                eraseTool.erase(targetPositionInt, voxelCanvas);
+            if (mode.brushType == Mode.BrushType.cube)
+                brushes.DrawInCube(targetPosition, brushes.brushObjects[(int)mode.brushType].transform.lossyScale.x, brushes.brushObjects[(int)mode.brushType].transform.lossyScale.y, brushes.brushObjects[(int)mode.brushType].transform.lossyScale.z);
+            else if (mode.brushType == Mode.BrushType.sphere)
+                brushes.DrawInSphere(targetPosition, (brushes.brushObjects[(int)mode.brushType].transform.lossyScale.x / 2) / voxelCanvas.transform.lossyScale.x);
         }
-        else if (selectMode == mode.Brush)
+                
+
+        /*
+        else if (mode.drawMode == Mode.DrawMode.erase)
         {
             if (isPinching)
                 brushTool.draw(targetPositionInt, voxelCanvas);
         }
+        */
     }
 
     public void setTargetValue(Vector3 getPosition, float pinchAmount)
