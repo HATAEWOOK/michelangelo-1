@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QCARInfo>
+    <TargetSet version="36.0" toolVersion="v6.0.2">
+        <ModelTarget name="Penguin2" targetId="2148f2956fe045949cd9730dcf5b1709" version="13.0" toolVersion="v6.0.2" bbox="-0.006551 0.000167 -0.005304 0.006457 0.016182 0.007710" trackingMode="car" upVector="0.0 1.0 0.0" optimizeTrackingFor="default" realisticTextures="no" />
+    </TargetSet>
+    <Assembly name="Penguin2" assemblyId="d795017fa5df4df28ec49ce31505d6db">
+        <Part name="Penguin2" translation="0 0 0" rotation="AD: 0 0 1 0" />
+        <EntryPoint name="(none)" trained="yes" />
+    </Assembly>
+</QCARInfo>

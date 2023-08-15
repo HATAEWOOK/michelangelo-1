@@ -1,7 +1,8 @@
 {
-  "dependencies": {
-    "com.qualcomm.qcht.unity.interactions": "file:C:/Users/uvrlab/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.qcht.unity.interactions-4.0.0-pre.14.tgz",
-    "com.qualcomm.snapdragon.spaces": "file:C:/Users/uvrlab/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.snapdragon.spaces-0.14.0.tgz",
+    "dependencies": {
+    "com.ptc.vuforia.engine": "file:com.ptc.vuforia.engine-10.16.5.tgz",
+    "com.qualcomm.qcht.unity.interactions": "file:\\Users\\UVR-OSY-KI\\Downloads\\Snapdragon_Spaces_SDK_0_14_0_for_Unity\\Unity Package\\com.qualcomm.qcht.unity.interactions-4.0.0-pre.14.tgz",
+    "com.qualcomm.snapdragon.spaces": "file:\\Users\\UVR-OSY-KI\\Downloads\\Snapdragon_Spaces_SDK_0_14_0_for_Unity\\Unity Package\\com.qualcomm.snapdragon.spaces-0.14.0.tgz",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.21",

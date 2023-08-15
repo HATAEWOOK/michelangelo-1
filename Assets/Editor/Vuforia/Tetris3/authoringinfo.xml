@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QCARInfo>
+    <TargetSet version="36.0" toolVersion="v6.0.2">
+        <ModelTarget name="Tetris" targetId="155dac08068246c5b54f0eb0595f48a0" version="13.0" toolVersion="v6.0.2" bbox="-0.015029 -0.005020 -0.005020 0.005020 0.035020 0.005024" trackingMode="car" upVector="0.0 0.0 1.0" optimizeTrackingFor="default" realisticTextures="no" />
+    </TargetSet>
+    <Assembly name="Tetris" assemblyId="676d663af7b74b45b2405b6f5b96035e">
+        <Part name="Tetris" translation="0 0 0" rotation="AD: 0 0 1 0" />
+        <EntryPoint name="(none)" trained="yes" />
+    </Assembly>
+</QCARInfo>
