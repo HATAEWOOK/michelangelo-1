@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,13 +34,13 @@ public class Action : MonoBehaviour
 
     public void BtnCliicked()
     {
-        if (this.gameObject.activeSelf)
+        GameObject[] menus = GameObject.FindGameObjectsWithTag("SubMenu");
+        foreach (GameObject menu in menus) 
         {
-            this.gameObject.SetActive(false);
+            menu.SetActive(false);
         }
-        else
-        {
-            this.gameObject.SetActive(true);
-        }
+        
+        this.gameObject.SetActive(true);
+
     }
 }

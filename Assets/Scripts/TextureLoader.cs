@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,6 +63,7 @@ public class TextureLoader : MonoBehaviour
 
             if (mr != null)
             {
+                Debug.Log(mr.material.name);
                 Material mat = new Material(Shader.Find("Standard"));
                 mat.mainTexture = modifiedTexture;
                 mr.material = mat;

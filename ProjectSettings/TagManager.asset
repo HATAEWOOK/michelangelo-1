@@ -8,6 +8,7 @@ TagManager:
   - Brush
   - VoxelCanvas
   - TextureTarget
+  - SubMenu
   layers:
   - Default
   - TransparentFX

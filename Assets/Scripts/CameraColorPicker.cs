@@ -47,11 +47,11 @@ public class CameraColorPicker : MonoBehaviour
         int dx = 0;
         int dy = 0;
 
-        for (int x = r*32; x < r*32 + 32; x++)
+        for (int x = r*32; x < r*32 + 33; x++)
         {
-            for (int y = c*32; y < c*32 + 32; y++)
+            for (int y = c*32; y < c*32 + 34; y++)
             {
-                defaultTexture.SetPixel(x, y, resizedTexture.GetPixel(dx, dy));
+                defaultTexture.SetPixel(x-1, y-1, resizedTexture.GetPixel(dx, dy));
             }
 
             if (dy < 31)
