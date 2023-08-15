@@ -16,5 +16,9 @@ MonoBehaviour:
   Values:
   - featureSets:
     - com.qualcomm.snapdragon.spaces
-  - featureSets: []
-  - featureSets: []
+  - featureSets:
+    - com.microsoft.openxr.featureset.wmr
+    - com.microsoft.openxr.featureset.appremoting
+  - featureSets:
+    - com.microsoft.openxr.featureset.appremoting
+    - com.microsoft.openxr.featureset.hololens
