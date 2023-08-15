@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.SpatialManipulation;
 using Microsoft.MixedReality.Toolkit.UX;
+using UnityEngine.UI;
 
 public class Mode : MonoBehaviour
 {
     [SerializeField]
+    List<Sprite> sprites;
+
+    [SerializeField]
     VoxelCanvas voxelCanvas;
 
     [SerializeField]
-    FontIconSelector fontIconSelector;
+    Image iconImage;
     public enum BrushType
     {
         cube,
@@ -44,6 +48,7 @@ public class Mode : MonoBehaviour
     public BrushType brushType = BrushType.cube;
     public MenuMode menuMode = MenuMode.none;
 
+
     public void DrawBtnClicked()
     {
         drawMode = DrawMode.draw;
@@ -52,7 +57,7 @@ public class Mode : MonoBehaviour
 
         canvasEditMode = false;
         voxelCanvas.gameObject.GetComponent<ObjectManipulator>().enabled = false;
-        fontIconSelector.CurrentIconName = "Icon 17";
+        iconImage.sprite = sprites[1];
     }
 
     public void EraseBtnClicked()
@@ -64,7 +69,7 @@ public class Mode : MonoBehaviour
 
         canvasEditMode = false;
         voxelCanvas.gameObject.GetComponent<ObjectManipulator>().enabled = false;
-        fontIconSelector.CurrentIconName = "Icon 17";
+        iconImage.sprite = sprites[1];
     }
 
     public void SelectBtnClicked()
@@ -76,7 +81,7 @@ public class Mode : MonoBehaviour
 
         canvasEditMode = false;
         voxelCanvas.gameObject.GetComponent<ObjectManipulator>().enabled = false;
-        fontIconSelector.CurrentIconName = "Icon 17";
+        iconImage.sprite = sprites[1];
     }
 
     public void DeselectBtnClicked()
@@ -95,8 +100,8 @@ public class Mode : MonoBehaviour
         voxelCanvas.gameObject.GetComponent<ObjectManipulator>().enabled = canvasEditMode;
 
         if(canvasEditMode)
-            fontIconSelector.CurrentIconName = "Icon 18";
+            iconImage.sprite = sprites[0];
         else
-            fontIconSelector.CurrentIconName = "Icon 17";
+            iconImage.sprite = sprites[1];
     }
 }
