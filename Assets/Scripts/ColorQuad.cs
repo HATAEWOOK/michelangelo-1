@@ -80,13 +80,13 @@ public class ColorQuad : MonoBehaviour
         tilePos.x = x;
         tilePos.y = y;
 
-        UVs[0] = new Vector2(tileSize * tilePos.x + tileSize,
+        UVs[3] = new Vector2(tileSize * tilePos.x + tileSize,
             tileSize * tilePos.y);
-        UVs[1] = new Vector2(tileSize * tilePos.x + tileSize,
+        UVs[2] = new Vector2(tileSize * tilePos.x + tileSize,
             tileSize * tilePos.y + tileSize);
-        UVs[2] = new Vector2(tileSize * tilePos.x,
+        UVs[1] = new Vector2(tileSize * tilePos.x,
             tileSize * tilePos.y + tileSize);
-        UVs[3] = new Vector2(tileSize * tilePos.x,
+        UVs[0] = new Vector2(tileSize * tilePos.x,
             tileSize * tilePos.y);
 
         return UVs;

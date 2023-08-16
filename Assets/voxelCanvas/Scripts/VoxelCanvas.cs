@@ -39,6 +39,8 @@ public class VoxelCanvas : MonoBehaviour
     [SerializeField]
     private GameObject userPos;
 
+    private bool isInitial = true;
+
 
     private Vector3Int tmpVec = new Vector3Int(0, 0, 0);
 
@@ -149,15 +151,19 @@ public class VoxelCanvas : MonoBehaviour
 
     public void Generate()
     {
+        if (!isInitial)
+        {
+            chunks.Clear();
+        }
         // set the size from the programinfo object
         Debug.Log("STARTING CANVAS");
         highlight = this.GetComponent<SelectionHighlight>();
+
         ProgramInfo info = null;
         if (GameObject.FindWithTag("ProgramInfo") != null)
         {
             info = GameObject.FindWithTag("ProgramInfo").GetComponent<ProgramInfo>();
         }
-        float initialX;
         numberOfChunks = 0;
         selectionList = new Dictionary<string, int[]>();
 
@@ -169,6 +175,8 @@ public class VoxelCanvas : MonoBehaviour
         {
             VoxelCanvasDimensions = new int[3] { 2, 2, 2 };
         }
+
+        Debug.Log(voxelCanvasDimensions[0] + ", " + voxelCanvasDimensions[1] + ", " + voxelCanvasDimensions[2]);
 
         voxelCanvasTextures = new Block.Tile[chunkDimension * voxelCanvasDimensions[0], chunkDimension * voxelCanvasDimensions[1], chunkDimension * voxelCanvasDimensions[2], 6];
         blockType = new int[chunkDimension * voxelCanvasDimensions[0], chunkDimension * voxelCanvasDimensions[1], chunkDimension * voxelCanvasDimensions[2]];
@@ -189,23 +197,34 @@ public class VoxelCanvas : MonoBehaviour
             }
         }
 
+        
+
         voxelBorders.transform.localScale = new Vector3(voxelCanvasDimensions[0], voxelCanvasDimensions[1], voxelCanvasDimensions[2]) * chunkDimension;
         voxelBorders.transform.position = transform.position + voxelBorders.transform.localScale * 0.5f - Vector3.one * 0.5f;
 
-        //set up the grid texture
-        foreach (CanvasGrid wall in gridWalls)
+        if (isInitial)
         {
-            wall.ChunkDimension = 1 / initialSize;
+            isInitial = false;
+            //set up the grid texture
+            foreach (CanvasGrid wall in gridWalls)
+            {
+                wall.ChunkDimension = 1 / initialSize;
 
-            wall.SizeTexture();
+                wall.SizeTexture();
+            }
         }
 
         voxelBorders.transform.SetParent(transform);
-        //scale down the voxelCanvas
 
-        initialX = transform.position.x - (voxelCanvasDimensions[1] * chunkDimension * initialSize) / 2.0f;
+        
+
+        //scale down the voxelCanvas
         //Debug.Log(initialX);
         //transform.position = new Vector3(initialX, transform.position.y + 0.58f, transform.position.z - 2.3f);
+        if (userPos == null)
+        {
+            userPos = GameObject.Find("Main Camera");
+        }
         transform.position = userPos.transform.position + new Vector3(-initialSize*chunkDimension, -initialSize * chunkDimension, initialZ);
         transform.localScale = new Vector3(initialSize, initialSize, initialSize);
 
@@ -419,7 +438,7 @@ public class VoxelCanvas : MonoBehaviour
                         Quaternion.Euler(Vector3.zero)
                     ) as GameObject;
 
-
+        Debug.Log("x: " + x + "y: " + y + "z: " + z);
         Chunk newChunk = newChunkObject.GetComponent<Chunk>();
         newChunk.FillBlocks(ChunkDimension);
 
@@ -823,6 +842,78 @@ public class VoxelCanvas : MonoBehaviour
         //scale down the voxelCanvas
         transform.localScale = scale;
         transform.position = pos;
+
+        Debug.Log("The voxel canvas is " + chunkDimension * voxelCanvasDimensions[0] + " " + chunkDimension * voxelCanvasDimensions[1] + " " + chunkDimension * voxelCanvasDimensions[2] + " " + numberOfChunks);
+
+        //resize the grid
+        voxelBorders.transform.localScale = Vector3.one;
+        voxelBorders.transform.localScale = new Vector3(voxelCanvasDimensions[0], voxelCanvasDimensions[1], voxelCanvasDimensions[2]) * chunkDimension;
+        voxelBorders.transform.position = transform.lossyScale.x * (transform.position + voxelBorders.transform.localScale * 0.5f - Vector3.one * 0.5f);
+
+        //set up the grid texture
+        foreach (CanvasGrid wall in gridWalls)
+        {
+            wall.ChunkDimension = 1 / initialSize;
+
+            wall.SizeTexture();
+        }
+    }
+
+    public void ResetCanvas()
+    {
+        numberOfChunks = 0;
+
+        //destroy all chunks
+        for (int x = 0; x < voxelCanvasDimensions[0]; x++)
+        {
+            for (int y = 0; y < voxelCanvasDimensions[1]; y++)
+            {
+                for (int z = 0; z < voxelCanvasDimensions[2]; z++)
+                {
+                    DestroyChunk(x * chunkDimension, y * chunkDimension, z * chunkDimension);
+                }
+            }
+        }
+    }
+
+    // loading a save file
+    public void LoadVoxelCanvas()
+    {
+        transform.localScale = Vector3.one;
+        numberOfChunks = 0;
+
+        //destroy all chunks
+        for (int x = 0; x < voxelCanvasDimensions[0]; x++)
+        {
+            for (int y = 0; y < voxelCanvasDimensions[1]; y++)
+            {
+                for (int z = 0; z < voxelCanvasDimensions[2]; z++)
+                {
+                    DestroyChunk(x * chunkDimension, y * chunkDimension, z * chunkDimension);
+                }
+            }
+        }
+
+        blockType = new int[chunkDimension * voxelCanvasDimensions[0], chunkDimension * voxelCanvasDimensions[1], chunkDimension * voxelCanvasDimensions[2]];
+
+        voxelCanvasDimensions = new int[3] { 2, 2, 2 };
+        voxelCanvasTextures = new Block.Tile[chunkDimension * voxelCanvasDimensions[0], chunkDimension * voxelCanvasDimensions[1], chunkDimension * voxelCanvasDimensions[2], 6];
+
+        //set the voxel chunks properly
+        if (numberOfChunks < voxelCanvasDimensions[0] * voxelCanvasDimensions[1] * voxelCanvasDimensions[2])
+        {
+            for (int x = 0; x < voxelCanvasDimensions[0]; x++)
+            {
+                for (int y = 0; y < voxelCanvasDimensions[1]; y++)
+                {
+                    for (int z = 0; z < voxelCanvasDimensions[2]; z++)
+                    {
+                        CreateChunk(x * chunkDimension, y * chunkDimension, z * chunkDimension);
+                        numberOfChunks++;
+                    }
+                }
+            }
+        }
 
         Debug.Log("The voxel canvas is " + chunkDimension * voxelCanvasDimensions[0] + " " + chunkDimension * voxelCanvasDimensions[1] + " " + chunkDimension * voxelCanvasDimensions[2] + " " + numberOfChunks);
 

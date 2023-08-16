@@ -9,6 +9,11 @@ public class Action : MonoBehaviour
 {
     public void HomeAction()
     {
+        VoxelCanvas vc = GameObject.Find("VoxelCanvas").GetComponent<VoxelCanvas>();
+        vc.ResetCanvas();
+        vc.transform.position = new Vector3(0, 0, 0);
+        vc.transform.rotation = Quaternion.identity;
+        vc.transform.localScale = new Vector3(1, 1, 1);
         SceneManager.LoadScene("home");
     }
 

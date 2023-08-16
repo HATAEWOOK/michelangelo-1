@@ -15,6 +15,8 @@ public class CanvasGrid : MonoBehaviour {
 
     private float chunkDimension;
 
+    public bool isInitialized = false;
+
 
     public float ScaleX
     {
@@ -76,6 +78,7 @@ public class CanvasGrid : MonoBehaviour {
         }
 
         rend.material.mainTextureScale = new Vector2(ScaleX, ScaleY);
+        isInitialized = true;
     }
 
     // Update is called once per frame

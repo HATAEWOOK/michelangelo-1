@@ -78,6 +78,12 @@ public class ColorPickerEdit : MonoBehaviour
         }
     }
 
+    public void CameraColorApply()
+    {
+        bx = TextureManager.instance.row * 0.32f;
+        by = TextureManager.instance.col * 0.32f;
+    }
+
     public void PlusX()
     {
         if (bx < 0.32f * 15)
