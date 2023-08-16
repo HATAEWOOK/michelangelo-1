@@ -18190,7 +18190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1a110d32af21aa4d872c707dfcc6043, type: 2}
+  - {fileID: 2100000, guid: eca38c200aef4da4d84dbea1b3f9cbdc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22105,6 +22105,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 1320034072}
   m_DetectionMode: 1
+--- !u!114 &1755617718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755617715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6930169c2d480d8adbe87b7b5e4357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _convexHullEnabled: 1
 --- !u!1 &1760640299
 GameObject:
   m_ObjectHideFlags: 0
