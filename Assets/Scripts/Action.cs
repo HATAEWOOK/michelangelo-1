@@ -9,11 +9,11 @@ public class Action : MonoBehaviour
 {
     public void HomeAction()
     {
-        VoxelCanvas vc = GameObject.Find("VoxelCanvas").GetComponent<VoxelCanvas>();
-        vc.ResetCanvas();
-        vc.transform.position = new Vector3(0, 0, 0);
-        vc.transform.rotation = Quaternion.identity;
-        vc.transform.localScale = new Vector3(1, 1, 1);
+        SceneManager.LoadScene("home");
+    }
+
+    public void HomeAction2()
+    {
         SceneManager.LoadScene("home");
     }
 
@@ -22,9 +22,21 @@ public class Action : MonoBehaviour
         SceneManager.LoadScene("main");
     }
 
+    public void MakingZoneActionAtHome()
+    {
+        TextureManager.instance.isFromHome = true;
+        SceneManager.LoadScene("main");
+    }
+
     public void MyGalleryAction()
     {
         SceneManager.LoadScene("gallery");
+    }
+
+    public void GalleryUIAction()
+    {
+       GameObject garrUI = GameObject.Find("GalleryUI");
+       garrUI.SetActive(!garrUI.activeSelf);
     }
 
     public void PlayZoneAction()
@@ -35,6 +47,11 @@ public class Action : MonoBehaviour
     public void CameraZoneAction()
     {
         SceneManager.LoadScene("camera");
+    }
+
+    public void Test()
+    {
+        Debug.Log("Btn cliicked");
     }
 
     public void BtnCliicked()

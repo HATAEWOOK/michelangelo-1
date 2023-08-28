@@ -60,7 +60,7 @@ MonoBehaviour:
   company: Qualcomm
   priority: 0
   required: 0
-  UseSceneUnderstandingPlaneDetection: 0
+  UseSceneUnderstandingPlaneDetection: 1
   ConvexHullEnabled: 1
 --- !u!114 &-8547686999889301584
 MonoBehaviour:
@@ -83,9 +83,9 @@ MonoBehaviour:
   priority: 0
   required: 0
   leftHandTrackingOptions:
-    motionRange: 0
+    motionRange: 2
   rightHandTrackingOptions:
-    motionRange: 0
+    motionRange: 2
   questHandTrackingMode: 1
 --- !u!114 &-8161653415411597476
 MonoBehaviour:
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   - {fileID: 4547562327161576556}
   - {fileID: 5136552546397173405}
   m_renderMode: 1
-  m_depthSubmissionMode: 0
+  m_depthSubmissionMode: 1
 --- !u!114 &5794150092178713288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1a99ebd75e49d1bc4152cccc8e2550, type: 3}
   m_Name: HitTestingFeature Android
   m_EditorClassIdentifier: 
-  m_enabled: 1
+  m_enabled: 0
   nameUi: Hit Testing
   version: 0.14.0
   featureIdInternal: com.qualcomm.snapdragon.spaces.raycasting
@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb03d48a4e23493fba7b405178b6b3d, type: 3}
   m_Name: ImageTrackingFeature Android
   m_EditorClassIdentifier: 
-  m_enabled: 1
+  m_enabled: 0
   nameUi: Image Tracking
   version: 0.14.0
   featureIdInternal: com.qualcomm.snapdragon.spaces.imagetracking
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d25b6c93e04925bb42da7f2fdf8027, type: 3}
   m_Name: SpacesMicrosoftMixedRealityMotionControllerProfile Android
   m_EditorClassIdentifier: 
-  m_enabled: 1
+  m_enabled: 0
   nameUi: Microsoft Mixed Reality Motion Controller Profile
   version: 0.14.0
   featureIdInternal: com.unity.openxr.feature.input.microsoftmotioncontroller

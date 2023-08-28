@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using Microsoft.MixedReality.Toolkit.SpatialManipulation;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.VisualScripting;
+using UnityEngine.XR.ARFoundation;
 
 public class CanvasSize : MonoBehaviour
 {
@@ -57,6 +59,7 @@ public class CanvasSize : MonoBehaviour
         if(canvasManipulate == null)
         {
             canvasManipulate = voxelCanvas.gameObject.AddComponent<ObjectManipulator>();
+            voxelCanvas.AddComponent<ARAnchor>();
         }
         
         canvasManipulate.selectMode = InteractableSelectMode.Multiple;
@@ -100,6 +103,7 @@ public class CanvasSize : MonoBehaviour
         if (canvasManipulate == null)
         {
             canvasManipulate = voxelCanvas.gameObject.AddComponent<ObjectManipulator>();
+            voxelCanvas.AddComponent<ARAnchor>();
         }
         canvasManipulate.selectMode = InteractableSelectMode.Multiple;
         foreach (CanvasGrid cg in canvasGrid)
@@ -142,6 +146,7 @@ public class CanvasSize : MonoBehaviour
         if (canvasManipulate == null)
         {
             canvasManipulate = voxelCanvas.gameObject.AddComponent<ObjectManipulator>();
+            voxelCanvas.AddComponent<ARAnchor>();
         }
         canvasManipulate.selectMode = InteractableSelectMode.Multiple;
         foreach (CanvasGrid cg in canvasGrid)

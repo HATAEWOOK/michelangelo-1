@@ -438,7 +438,6 @@ public class VoxelCanvas : MonoBehaviour
                         Quaternion.Euler(Vector3.zero)
                     ) as GameObject;
 
-        Debug.Log("x: " + x + "y: " + y + "z: " + z);
         Chunk newChunk = newChunkObject.GetComponent<Chunk>();
         newChunk.FillBlocks(ChunkDimension);
 

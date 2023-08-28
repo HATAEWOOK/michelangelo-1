@@ -4,6 +4,7 @@ using UnityEngine;
 using Microsoft.MixedReality.Toolkit.SpatialManipulation;
 using Microsoft.MixedReality.Toolkit.UX;
 using UnityEngine.UI;
+using UnityEngine.XR.ARFoundation;
 
 public class Mode : MonoBehaviour
 {
@@ -98,6 +99,7 @@ public class Mode : MonoBehaviour
 
         canvasEditMode = !canvasEditMode;
         voxelCanvas.gameObject.GetComponent<ObjectManipulator>().enabled = canvasEditMode;
+        voxelCanvas.gameObject.GetComponent<ARAnchor>().enabled = !canvasEditMode;
 
         if(canvasEditMode)
             iconImage.sprite = sprites[0];

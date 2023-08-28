@@ -4,21 +4,21 @@
  *
  ******************************************************************************/
 
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.OpenXR;
 
 namespace Qualcomm.Snapdragon.Spaces.Samples
 {
-    public class PlaneDetectionSampleController : SampleController
+    public class PlaneDetectionSampleController : MonoBehaviour
     {
         public Toggle EnableConvexHullToggle;
         private ARPlaneManager _planeManager;
         private SpacesARPlaneManagerConfig _planeManagerConfig;
 
-        public override void Start()
+        public void Start()
         {
-            base.Start();
             if (_planeManagerConfig != null)
             {
                 EnableConvexHullToggle.isOn = _planeManagerConfig.ConvexHullEnabled;
@@ -40,7 +40,7 @@ namespace Qualcomm.Snapdragon.Spaces.Samples
             _planeManagerConfig = FindObjectOfType<SpacesARPlaneManagerConfig>();
         }
 
-        protected override bool CheckSubsystem()
+        protected bool CheckSubsystem()
         {
             return _planeManager.subsystem?.running ?? false;
         }

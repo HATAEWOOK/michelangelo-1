@@ -100,7 +100,6 @@ public class Brushes : MonoBehaviour
 
 
 
-        Debug.Log("widths: " + width + " " + xend + " " + pos[0]);
         for (int x = pos[0] - halfx; x < pos[0] + xend; x++)
         {
             for (int y = pos[1] - halfy; y < pos[1] + yend; y++)
@@ -110,7 +109,6 @@ public class Brushes : MonoBehaviour
                     if (CheckSel(x, y, z) && (mode.drawMode == Mode.DrawMode.draw))
                     {
                         voxelCanvas.SetBlock(x, y, z, new BlockFull());
-                        Debug.Log("Draw with" + voxelCanvas.DrawColors[0] + " "+voxelCanvas.DrawColors[1]);
                         voxelCanvas.GetBlock(x, y, z).SetTiles(voxelCanvas.DrawWholeColor(x, y, z, voxelCanvas.DrawColors[0], voxelCanvas.DrawColors[1]));
                     }
                     else if (CheckSel(x, y, z) && (mode.drawMode == Mode.DrawMode.erase))

@@ -11,6 +11,7 @@ public class TextureManager : MonoBehaviour
     public int row = 14;
     public int col = 0;
     public bool isUpdate = false;
+    public bool isFromHome = false;
     public GameObject sceneObj;
 
     public Texture2D DefaultTexture
@@ -23,6 +24,15 @@ public class TextureManager : MonoBehaviour
         {
             coppiedTexture = value;
         }
+    }
+
+    public Texture2D OriginTexture
+    {
+        get
+        {
+            return defaultTexture;
+        }
+
     }
 
     private void Awake()
@@ -40,6 +50,12 @@ public class TextureManager : MonoBehaviour
         coppiedTexture.Apply();
 
         sceneObj = GameObject.Find("Scene");
+    }
+
+    private void Update()
+    {
+        if (sceneObj == null)
+            sceneObj = GameObject.Find("Scene");
     }
 
     // Start is called before the first frame update
