@@ -37,7 +37,7 @@ public class ShowModel : MonoBehaviour
     {
         Debug.Log("btn index: " + i);
         Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: "+originPosition);
+        Debug.Log("origin pos: " + originPosition);
         Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
 
         Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
@@ -50,96 +50,11 @@ public class ShowModel : MonoBehaviour
         model.transform.localScale = scale * model.transform.localScale;
         model.transform.parent = voxelCanvas.transform;
     }
-    /*
-    public void Btn1Clicked()
+
+    public void HomeBtnClicked()
     {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
+        if (model != null)
+            Destroy(model);
     }
-    public void Btn2Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
 
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-    }
-    public void Btn3Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-    }
-    public void Btn4Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-    }
-    public void Btn5Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-    }
-    public void Btn6Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-       
-
-    }
-    public void Btn7Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-    }
-    public void Btn8Clicked()
-    {
-        Vector3 originPosition = voxelCanvas.gameObject.transform.localPosition;
-        Debug.Log("origin pos: " + originPosition);
-        Vector3 centerPosition = new Vector3(originPosition.x + voxelCanvas.chunkDimension, 0, originPosition.y + voxelCanvas.chunkDimension);
-
-        Vector3 globalPosition = voxelCanvas.gameObject.transform.TransformPoint(centerPosition);
-        //models[0].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        GameObject model = Instantiate(models[0], globalPosition, Quaternion.identity);
-        model.transform.parent = voxelCanvas.transform;
-    }
-    */
 }
