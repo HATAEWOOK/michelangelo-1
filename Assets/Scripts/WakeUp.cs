@@ -55,7 +55,7 @@ public class WakeUp : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Upload complete!");
+                Debug.Log("Upload completed!");
                 Application.logMessageReceived += HandleLog;
             }
             else
