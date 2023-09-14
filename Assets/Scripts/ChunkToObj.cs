@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -6,11 +6,32 @@ using System.Text;
 using Unity.XR.CoreUtils;
 using UnityEditor;
 using UnityEngine;
+using TMPro;
+using UnityEngine.Networking;
 
 public class ChunkToObj : MonoBehaviour
 {
     private bool isUpdate = false;
     public bool IsUpdate { get { return isUpdate; } set { isUpdate = value; } }
+    public TextMeshProUGUI consoleText;
+    private string consoleString;
+
+    void OnEnable()
+    {
+        Application.logMessageReceived += HandleLog;
+    }
+
+    void OnDisable()
+    {
+        Application.logMessageReceived -= HandleLog;
+    }
+
+    public void HandleLog(string message, string stackTrace, LogType type)
+    {
+        consoleString = consoleString + "\n" + message;
+        consoleText.text = consoleString;
+    }
+    public string serverURL = "http://43.201.109.250/getObjList";
 
     private string RootPath
     {
@@ -27,14 +48,10 @@ public class ChunkToObj : MonoBehaviour
 
     private string folderName = "ObjFolder";
     private string fileName = "voxel_obj";
-    private string folderPath => $"{RootPath}/{folderName}";
-    private string TotalPath => $"{folderPath}/{fileName}_{DateTime.Now.ToString("MMdd_HHmmss")}.obj";
+    private string folderPath => $"/{RootPath}/{folderName}";
+    private string TotalPath => $"/{folderPath}/{fileName}_{DateTime.Now.ToString("MMdd_HHmmss")}.obj";
+    private string filePath => $"/storage/emulated/0/Android/data/com.Team.Michelangelo.MichelangeloGlasses/files/ObjFolder/{fileName}_{DateTime.Now.ToString("MMdd_HHmmss")}.obj";
 
-    //private const string serverURL = "http://localhost:5000/";
-    //public static Item scriptableObjectToUpload;
-    //public static GameObject prefabToUpload;
-
-    // Start is called before the first frame update
     void Start()
     {
         if (Directory.Exists(folderPath) == false)
@@ -42,7 +59,6 @@ public class ChunkToObj : MonoBehaviour
         Debug.Log("stream" + TotalPath);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -98,38 +114,46 @@ public class ChunkToObj : MonoBehaviour
         _chunks.Clear();
         combine.Clear();
         ObjExporter.SaveMeshToFile(mesh, mr, "Saved obj", TotalPath);
-
-        //{
-        //    ObjExporter.SaveMeshToFile(mesh, mr, "Saved obj", TotalPath);
-        //}
-        //catch
-        //{
-        //    Debug.Log("error");
-        //}
-        //try
-        //{
-        //    ObjExporter.SaveMeshToFile(mesh, mr, "Saved obj", AltPath);
-        //}
-        //catch
-        //{
-        //    Debug.Log("error");
-        //}
-        //MeshData meshData = new MeshData();
-        //meshData.vertices.AddRange(mesh.vertices);
-        //meshData.triangles.AddRange(mesh.triangles);
-        //meshData.uv.AddRange(mesh.uv);
-        //vc.GetComponent<VoxelCanvas>().ResetCanvas();
-        //isUpdate = true;
-        //try
-        //{
-        //    SaveAsObjFile(meshData, TotalPath);
-        //}
-        //catch
-        //{
-        //    Debug.Log("error");
-        //}       
+        Application.logMessageReceived += HandleLog;
+        Debug.Log("hey");
+        StartCoroutine(UploadFile());
+        Debug.Log("Finished");
     }
+    IEnumerator UploadFile()
+    {
+        byte[] fileData = File.ReadAllBytes(filePath);
+        //byte[] fileData = new System.Text.UTF8Encoding().GetBytes(myFile);
+        string fileName = Path.GetFileName(filePath);
+        //jsonFile = JsonUtility.ToJson(fileData);
+        Application.logMessageReceived += HandleLog;
+        UnityEngine.Debug.Log("Request");
+        Application.logMessageReceived += HandleLog;
+        using (UnityWebRequest www = new UnityWebRequest(serverURL, "POST"))
+        {
+            Application.logMessageReceived += HandleLog;
+            www.uploadHandler = new UploadHandlerRaw(fileData);
+            Application.logMessageReceived += HandleLog;
+            www.downloadHandler = new DownloadHandlerBuffer();
+            Application.logMessageReceived += HandleLog;
+            // ÔøΩÔøΩÔøΩÔøΩ ÔøΩÃ∏ÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ
+            www.SetRequestHeader("Content-Type", "application/octet-stream");
+            www.SetRequestHeader("X-FileName", fileName);
+            UnityEngine.Debug.Log("Sending");
+            // ÔøΩÔøΩÔøΩŒµÔøΩ ÔøΩÔøΩÔøΩÔøΩ
+            yield return www.SendWebRequest();
 
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Upload complete!");
+                Application.logMessageReceived += HandleLog;
+            }
+            else
+            {
+                Debug.Log("Error: " + www.error);
+                Application.logMessageReceived += HandleLog;
+            }
+        }
+    }
     public void SaveAsObjFile(MeshData meshData, string fileName)
     {
         string filePath = fileName;
@@ -182,7 +206,7 @@ public class ChunkToObj : MonoBehaviour
             // 2. Vertices
             foreach (Vector3 v in mesh.vertices)
             {
-                // ¿Ø¥œ∆º¥¬ ¡¬«•∞Ë∞° ¥ﬁ∂Ûº≠ x π›¿¸Ω√ƒ—æﬂ «‘
+                // Ïú†ÎãàÌã∞Îäî Ï¢åÌëúÍ≥ÑÍ∞Ä Îã¨ÎùºÏÑú x Î∞òÏ†ÑÏãúÏºúÏïº Ìï®
                 sb.Append(string.Format("v {0:F4} {1:F4} {2:F4}\n", -v.x, v.y, v.z));
             }
             sb.Append("\n");
@@ -190,7 +214,7 @@ public class ChunkToObj : MonoBehaviour
             // 3. Normals
             foreach (Vector3 v in mesh.normals)
             {
-                // x π›¿¸
+                // x Î∞òÏ†Ñ
                 sb.Append(string.Format("vn {0:F4} {1:F4} {2:F4}\n", -v.x, v.y, v.z));
             }
             sb.Append("\n");
@@ -211,7 +235,7 @@ public class ChunkToObj : MonoBehaviour
                 int[] triangles = mesh.GetTriangles(material);
                 for (int i = 0; i < triangles.Length; i += 3)
                 {
-                    // x π›¿¸
+                    // x Î∞òÏ†Ñ
                     sb.Append(string.Format("f {1}/{1}/{1} {0}/{0}/{0} {2}/{2}/{2}\n",
                         triangles[i] + 1, triangles[i + 1] + 1, triangles[i + 2] + 1));
                 }

@@ -152,7 +152,7 @@
       }
     },
     "com.qualcomm.qcht.unity.interactions": {
-      "version": "file:C:/Users/uvrlab/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.qcht.unity.interactions-4.0.0-pre.14.tgz",
+      "version": "file:C:/Users/admin/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.qcht.unity.interactions-4.0.0-pre.14.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -162,7 +162,7 @@
       }
     },
     "com.qualcomm.snapdragon.spaces": {
-      "version": "file:C:/Users/uvrlab/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.snapdragon.spaces-0.14.0.tgz",
+      "version": "file:C:/Users/admin/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.snapdragon.spaces-0.14.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -261,6 +261,22 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.sysroot": {
+      "version": "2.0.7",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.sysroot.linux-x86_64": {
+      "version": "2.0.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.7"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.test-framework": {
       "version": "1.1.33",
       "depth": 0,
@@ -300,6 +316,16 @@
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.toolchain.win-x86_64-linux-x86_64": {
+      "version": "2.0.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.7",
+        "com.unity.sysroot.linux-x86_64": "2.0.6"
       },
       "url": "https://packages.unity.com"
     },
