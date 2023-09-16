@@ -23,6 +23,8 @@ public class InteractionManager : MonoBehaviour
     private Tools tools;
     [SerializeField]
     private MRTKRayInteractor rayInteractor;
+    [SerializeField]
+    private MRTKLineVisual lineVisual;
     private Vector3 rayOriginPoint;
     private GameObject voxelCanvas;
     private IReadOnlyList<HandJointPose> handList;
@@ -95,5 +97,11 @@ public class InteractionManager : MonoBehaviour
             }   
         }
         
+    }
+
+    public void RightHandRayOff()
+    {
+        lineVisual = GameObject.Find("MRTK XR Rig").transform.Find("Camera Offset/MRTK RightHand Controller/Far Ray").GetComponent<MRTKLineVisual>();
+        lineVisual.enabled = false;
     }
 }

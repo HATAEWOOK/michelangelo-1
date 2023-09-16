@@ -152,7 +152,7 @@
       }
     },
     "com.qualcomm.qcht.unity.interactions": {
-      "version": "file:C:/Users/admin/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.qcht.unity.interactions-4.0.0-pre.14.tgz",
+      "version": "file:C:/Users/uvrlab/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.qcht.unity.interactions-4.0.0-pre.14.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -162,7 +162,7 @@
       }
     },
     "com.qualcomm.snapdragon.spaces": {
-      "version": "file:C:/Users/admin/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.snapdragon.spaces-0.14.0.tgz",
+      "version": "file:C:/Users/uvrlab/Downloads/Snapdragon_Spaces_SDK_0_14_0_for_Unity/Unity Package/com.qualcomm.snapdragon.spaces-0.14.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
