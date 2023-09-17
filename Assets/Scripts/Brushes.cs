@@ -84,6 +84,18 @@ public class Brushes : MonoBehaviour
         
     }
 
+    public void BrushSizeForCanvas(int canvasSize)
+    {
+        print("BrushSize");
+        if (mode.menuMode != Mode.MenuMode.none)
+        {
+            print("BrushSize");
+            float scaleValue = canvasSize / 100f;
+            brushObjects[(int)mode.brushType].transform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
+            brushSize[(int)mode.menuMode].SizeValueFloat = canvasSize;
+        }
+    }
+
 
     public void DrawInCube(Vector3 brushPosition, float height, float width, float depth)
     {

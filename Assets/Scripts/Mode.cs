@@ -43,11 +43,17 @@ public class Mode : MonoBehaviour
         none
     }
 
-    private bool canvasEditMode = true;
+    private bool canvasEditMode = false;
     public DrawMode drawMode = DrawMode.none;
     public SelectMode selectMode = SelectMode.none;
     public BrushType brushType = BrushType.cube;
     public MenuMode menuMode = MenuMode.none;
+
+    private void Start()
+    {
+        voxelCanvas.gameObject.GetComponent<ObjectManipulator>().enabled = canvasEditMode;
+        voxelCanvas.gameObject.GetComponent<ARAnchor>().enabled = !canvasEditMode;
+    }
 
 
     public void DrawBtnClicked()
